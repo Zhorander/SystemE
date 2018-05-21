@@ -37,7 +37,7 @@ ObjectManager::~ObjectManager ()
     cycle_thread.join ();
 }
 
-void ObjectManager::processMsg (Systems::Msg *msg)
+void ObjectManager::processMsg (Msg *msg)
 {
     std::lock_guard<std::mutex> lock(qGuard);
 

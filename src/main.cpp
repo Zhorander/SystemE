@@ -2,14 +2,13 @@
 #include "systems.h"
 #include "console.h"
 #include "input.h"
+#include "graphics.h"
 #include "object_manager.h"
 
 int main ()
 {
     std::mutex mtx;
     std::condition_variable cv;
-
-    /* Framework::init_framework (); */
 
     std::cout << "starting message bus...\n";
 
@@ -21,11 +20,16 @@ int main ()
     Console *c = new Console (&mbus);
     mbus.addSystem (c);
 
-    /* Input *in  = new Input (&mbus); */
-    /* mbus.addSystem (in); */
+    Input *in  = new Input (&mbus);
+    mbus.addSystem (in);
 
     ObjectManager *om = new ObjectManager (&mbus);
     mbus.addSystem (om);
+
+    Graphics *grphcs = new Graphics (&mbus, 640, 640);
+    mbus.addSystem (grphcs);
+
+    grphcs->setInputHandler(in);
 
     /* for (int i = 0; i < 100; i++) { */
     /*     mbus.postMessage (new Msg(kb_event, NULL)); */
@@ -34,8 +38,6 @@ int main ()
     std::unique_lock<std::mutex> lck(mtx);
 
     cv.wait (lck);
-
-    /* Framework::quit_framework (); */
 
     return 0;
 }

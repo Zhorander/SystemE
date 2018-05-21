@@ -1,4 +1,4 @@
-//framework.c
+//framework.h
 
 #pragma once
 
@@ -7,61 +7,62 @@
 
 namespace Framework {
 
-    //Key press surfaces constants
-    enum KB_Key {
-        KB_NULL,
-        KB_UP,
-        KB_DOWN,
-        KB_LEFT,
-        KB_RIGHT,
-        KB_CHAR
+    class Window;
+    class WindowObserver;
+    class VertexBufferObject;
+
+    typedef sf::RenderWindow RenderWindow;
+    typedef sf::Event event;
+    typedef sf::Event::EventType input_type;
+    typedef sf::Color Color;
+    typedef sf::Drawable Drawable;
+    typedef sf::Vertex Vertex;
+    typedef sf::VertexBuffer VertexBuffer;
+    typedef sf::VertexArray VertexArray;
+    typedef sf::Vector2f Vector2f;
+
+    class WindowObserver {
+    public:
+        virtual void notify(event e);
     };
 
-    enum JoyStickEvents {
-        DPAD_UP,
-        DPAD_DOWN,
-        DPAD_LEFT,
-        DPAD_RIGHT
+    /** VertexBufferObject
+     * Wrapper around sfml's VertexBuffer class
+     */
+    class VertexBufferObject {
+    public:
+        VertexBufferObject();
+        VertexBufferObject(Vertex *vertArray);
+        ~VertexBufferObject();
+        void update(Vertex *vertArray);
+        void draw(Window *win);
+    private:
+        VertexBuffer *vb;
     };
 
-
-    void init_framework ();
-    void quit_framework ();
-
-    typedef sf::RenderWindow window;
-
-    namespace Input {
-        int poll_kb ();
-        char *get_string ();
-        /* JoyStickEvents poll_js (); */
+    class Window {
+    public:
+        Window();
+        Window(int height, int width, std::string title);
+        ~Window();
+        void closeWindow();
+        void print(RenderWindow *win, int x, int y, std::string msg);
+        void clearWindow();
+        void displayWindow();
+        bool isOpen();
+        void clearWindow(int r, int g, int b);
+        void clearWindow(int r, int g, int b, int a);
+        void setInputHandler(WindowObserver *in);
+        event getNextEvent();
+        bool pollEvent(event *e);
+    private:
+        RenderWindow *win;
+        event window_event;
+        void createWindow(int height, int width, std::string name);
     };
 
-    namespace Window {
-        extern const window *active_window;
-        extern const window *backbuffer;
-
-        void set_active_window (window *win);
-        const window *get_active_window ();
-        window *create_window (int height, int width, int startx, int starty);
-        void free_window (window *win);
-        void print (const char *msg);
-        void quit ();
-        void refresh_window ();
-        void clear_window ();
-        void clear_window ();
-        /**display_window
-         *
-         * clears the active window,
-         * swaps with the backbuffer,
-         * and draws it the screen
-         * */
-        void display_window ();
-        void swap_buffers ();
-        void clear_backbuffer ();
-        /* void change_window (); */
-    };
-
-    namespace Sound {
+    class Sound {
+    public:
         void play_sound ();
     };
 

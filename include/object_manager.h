@@ -19,7 +19,7 @@ class ObjectManager : public Systems::System {
         ~ObjectManager ();
         void start_system () override;
         void setLifeCycle (int lc); //set the amount of cycles an obj can live for (default: 3)
-        void processMsg (Systems::Msg *msg) override;
+        void processMsg (Msg *msg) override;
         void startCycle (); //start a collection cycle, removing as necessary
     private:
         using Systems::System::System;

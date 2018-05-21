@@ -1,67 +1,61 @@
+//input.cpp
+
 #include "input.h"
 
 Input::Input (Systems::MessageBus *mbus)
     : super (mbus)
 {
     start_system ();
-    input_type = INPUT_BY_CHAR;
+    input_type = INPUT_ON;
     printf ("Input system starting...\n");
 }
 
 Input::~Input ()
 {
-    input_listener.join ();
     msg_handler.join ();
 }
 
 void Input::start_system ()
 {
-    input_listener = std::thread (&Input::inputListener, this);
     msg_handler  = std::thread (&System::messageHandler, this);
 }
 
-void Input::inputListener ()
+void Input::notify(Framework::event e)
 {
-    int *key = NULL;
-    Msg *m = nullptr;
-    char *str = NULL;
+    /* Msg *m = nullptr; */
+    /* char *str = NULL; */
 
-    while (msgBus->isRunning ()) {
-        //send key if not blocked
-        switch (input_type) {
-            case INPUT_BY_CHAR:
-                key = (int *)malloc (sizeof (char));
-                *key = Framework::Input::poll_kb ();
-                m = new Msg (kb_event, key);
-                msgBus->postMessage (m);
-
-                if (*key == 21 || *key == 'q') {
-                    msgBus->exit ();
-                }
-                break;
-            case INPUT_BY_STRING:
-                str = Framework::Input::get_string ();
-                m = new Msg (kb_event, str);
-                msgBus->postMessage (m);
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-const char *Input::key_to_string (Framework::KB_Key k)
-{
-    using namespace Framework;
-
-    switch (k) {
-        case KB_DOWN: return "Down"; break;
-        case KB_UP: return "Up"; break;
-        case KB_LEFT: return "Left"; break;
-        case KB_RIGHT: return "Right"; break;
+    //send key if not blocked
+    switch (e.type) {
+        case sf::Event::KeyPressed:
+            printf ("A key was pressed\n\r");
+            break;
+        case sf::Event::KeyReleased:
+            printf ("The key was released\n\r");
+            break;
+        case sf::Event::MouseButtonPressed:
+            printf ("Mouse Button Pressed\n\r");
+            break;
+        case sf::Event::Closed:
+            printf ("Window requested to be closed\n");
+            break;
         default:
             break;
     }
+}
+
+const char *Input::key_to_string ()
+{
+    // int k = 1;
+
+    // switch (k) {
+    //     case KB_DOWN: return "Down"; break;
+    //     case KB_UP: return "Up"; break;
+    //     case KB_LEFT: return "Left"; break;
+    //     case KB_RIGHT: return "Right"; break;
+    //     default:
+    //         break;
+    // }
 
     return "Other";
 }

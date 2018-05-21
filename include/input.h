@@ -3,19 +3,19 @@
 #pragma once
 
 #define INPUT_OFF 0
-#define INPUT_BY_CHAR 1
-#define INPUT_BY_STRING 2
+#define INPUT_ON 1
 
 #include "systems.h"
 #include "framework.h"
+#include <SFML/Window/Keyboard.hpp>
 
 using namespace Systems;
 
-class Input : public Systems::System {
+class Input : public Systems::System, public Framework::WindowObserver {
     public:
         Input (Systems::MessageBus *mbus);
         ~Input ();
-        void inputListener ();
+        void notify(Framework::event e) override;
         void start_system () override;
         void blockInput ();
         void unblockInput ();
@@ -26,6 +26,9 @@ class Input : public Systems::System {
         int input_type;
         using Systems::System::System;
         typedef System super;
-        std::thread input_listener;
-        const char *key_to_string (Framework::KB_Key k);
+        const char *key_to_string ();
+
+        std::string key_table[sf::Keyboard::KeyCount] {
+        "unknown",
+        };
 };

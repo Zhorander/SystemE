@@ -6,7 +6,7 @@ LIB := -pthread -lreadline -lsfml-graphics -lsfml-window -lsfml-system
 
 SRCDIR := src
 BUILDDIR := build
-TARGET := bin/nc_engine
+TARGET := bin/systeme
 
 SOURCES := $(shell find $(SRCDIR) -type f -name '*.cpp')
 OBJECTS := $(patsubst $(SRCDIR)/%, $(BUILDDIR)/%, $(SOURCES:.cpp=.o))

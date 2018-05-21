@@ -11,7 +11,7 @@ class Console : public Systems::System {
         Console (MessageBus *mbus);
         void inputListener ();
         void start_system () override;
-        void processMsg (Systems::Msg *msg) override;
+        void processMsg (Msg *msg) override;
         void print_logo ();
         void process_cmd (std::string s);
         ~Console ();
@@ -30,11 +30,7 @@ class Console : public Systems::System {
         "block_input",
         "unblock_input",
         "shutdown",
-        "pause_audio",
-        "resume_audio",
-        "stop_audio",
-        "play_audio",
-        "set_audio",
+        "audio"
         "nil_msg"
         };
 };

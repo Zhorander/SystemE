@@ -12,6 +12,8 @@
 #include <ostream>
 #include <chrono>
 
+#include "messages.h"
+
 #ifdef __linux__
 #include <unistd.h>
 
@@ -29,30 +31,6 @@ namespace Systems {
 
     class MessageBus;
     class System;
-    class Msg;
-
-    enum priority {
-        low = 0,
-        normal,
-        high
-    };
-
-    enum msg_types {
-        kb_event = 0, //keyboard event
-        js_event, //joystick event
-        error,
-        warning,
-        quit,
-        block_input,
-        unblock_input,
-        shutdown,
-        pause_audio,
-        resume_audio,
-        stop_audio,
-        play_audio,
-        set_audio,
-        nil_msg, //mark end of enum
-    };
 
     //---------System Utilities--------------------
     //IT IS EXTREMELY ADVISED THAT YOU DON'T USE THESE
@@ -61,27 +39,6 @@ namespace Systems {
     void system_sleep (int millisec);
 
     //----------------------------------------------
-
-    class Msg {
-        public:
-            Msg (int t, void *val);
-            Msg (int t, void *val, priority pr);
-            ~Msg ();
-
-            int getMsgType ();
-            void *getValue ();
-
-            //judge msg priority
-            bool operator < (Msg *y)
-            {
-                return this->p < y->p;
-            }
-
-        private:
-            int message_type;
-            void *value;
-            priority p;
-    };
 
     class MessageBus {
         public:

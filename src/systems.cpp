@@ -66,39 +66,6 @@ void System::start_system ()
     msg_handler = std::thread (&System::messageHandler, this);
 }
 
-//-----MSG-----
-Msg::Msg (int t, void *val)
-{
-    message_type = t;
-    value = val;
-    p = normal; // if no priority given, treat a normal
-}
-
-Msg::Msg (int t, void *val, priority pr)
-{
-    message_type = t;
-    value = val;
-    p = pr;
-}
-
-Msg::~Msg ()
-{
-    if (value) {
-        free (value);
-        value = NULL;
-    }
-}
-
-int Msg::getMsgType ()
-{
-    return message_type;
-}
-
-void *Msg::getValue ()
-{
-    return value;
-}
-
 //-----MessageBus-----
 MessageBus::MessageBus ()
 {

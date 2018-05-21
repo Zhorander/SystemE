@@ -39,12 +39,12 @@ void Console::process_cmd (std::string s)
                 break;
         }
 
-        Msg *m = new Msg(i, NULL);
+        Msg *m = new Msg((msg_type)i, NULL);
         msgBus->postMessage (m);
     }
 }
 
-void Console::processMsg (Systems::Msg *msg)
+void Console::processMsg (Msg *msg)
 {
     std::cout << this->cmd_list[msg->getMsgType()] << "\n";
 }

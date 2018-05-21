@@ -1,92 +1,116 @@
+//framework.cpp
+
 #include "framework.h"
 
 using namespace Framework;
 
-const window *Window::active_window = NULL;
-const window *Window::backbuffer = NULL;
+/*--------------WINDOWOBSERVER-------------*/
 
-void Framework::init_framework ()
+void WindowObserver::notify(event e){}
+
+/*--------------VERTEXBUFFEROBJECT---------*/
+
+VertexBufferObject::VertexBufferObject()
 {
-    window *win = new sf::RenderWindow(sf::VideoMode(200, 200), "Hello World!");
-
-    Window::active_window = win;
-    /* initscr (); */
-    /* /1* raw (); *1/ */
-    /* keypad (stdscr, TRUE); */
-    /* Window::active_window = stdscr; */
-    /* box (stdscr, 0, 0); */
+    vb = new VertexBuffer(sf::Triangles);
 }
 
-void Framework::quit_framework ()
+VertexBufferObject::VertexBufferObject(Vertex *vertArray)
 {
-    if (Window::active_window) {
-        delete Window::active_window;
-    }
+    vb = new VertexBuffer(sf::Triangles);
 }
 
-
-/*-------------INPUT------------------------*/
-
-int Input::poll_kb ()
+void VertexBufferObject::update(Vertex *vertArray)
 {
-    return 0;
 }
 
-char *Input::get_string ()
+void VertexBufferObject::draw(Window *win)
 {
-    return NULL;
+}
+
+VertexBufferObject::~VertexBufferObject()
+{
+    delete vb;
 }
 
 /*--------------WINDOW---------------------*/
 
-window *Window::create_window (int height, int width, int startx, int starty)
+Window::Window()
 {
-    window *win = new window (sf::VideoMode(height, width), "hello world!");
-
-    return win;
+    createWindow(480, 480, "System E");
 }
 
-void Window::set_active_window (sf::RenderWindow *win)
+Window::Window(int height, int width, std::string name)
 {
-    Window::active_window = win;
+    createWindow(height, width, name);
 }
 
-const window *Window::get_active_window ()
+/** create_window
+ * Initializes the window
+ * The specific window shouldn't matter to the engine
+ */
+void Window::createWindow(int height, int width, std::string name)
 {
-    return Window::active_window;
+    win = new RenderWindow(sf::VideoMode(height, width), "hello world!");
 }
 
-void Window::free_window (window *win)
+bool Window::isOpen()
 {
-    delete win;
+    return win->isOpen();
 }
 
-void Window::clear_window ()
+/** closeWindow
+ * close an open window
+ */
+void Window::closeWindow()
 {
-    ((window *)active_window)->clear ();
+    if (win != nullptr) {
+        win->close();
+        delete win;
+    }
 }
 
-void Window::refresh_window ()
+/** clearWindow
+ * clear the window
+ * with either no arguments, rgb, or rgba
+ */
+void Window::clearWindow()
 {
+    win->clear();
 }
 
-void Window::swap_buffers ()
+void Window::displayWindow()
 {
-    const window *tmp = active_window;
-
-    active_window = backbuffer;
-    backbuffer = tmp;
+    win->display();
 }
 
-void Window::display_window ()
+void Window::clearWindow(int r, int g, int b)
 {
-    clear_window ();
-    swap_buffers ();
-    ((window *)active_window)->display ();
+    win->clear(Color(r, g, b));
 }
 
-void Window::clear_backbuffer ()
+void Window::clearWindow(int r, int g, int b, int a)
 {
-    ((window *)backbuffer)->clear ();
+    win->clear(Color(r, g, b, a));
+}
+
+event Window::getNextEvent()
+{
+    if (win && !win->waitEvent(window_event)) {
+        fprintf(stderr, "Error: error getting window event\n");
+    }
+
+    return window_event;
+}
+
+bool Window::pollEvent(event *e)
+{
+    return win->pollEvent(*e);
+}
+
+Window::~Window()
+{
+    if (win != NULL && win != nullptr)
+        delete win;
 }
 
