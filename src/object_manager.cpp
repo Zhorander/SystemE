@@ -18,7 +18,6 @@ ObjectManager::ObjectManager (Systems::MessageBus *mbus)
 {
     start_system ();
     life_cycle = 3;
-    printf ("Object manager system starting...\n");
 }
 
 ObjectManager::~ObjectManager ()

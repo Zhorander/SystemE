@@ -2,7 +2,7 @@ CC := clang++
 CFLAGS := -g -Wall -std=c++11
 OBJFLAGS := $(CFLAGS) -c
 INC := -I include
-LIB := -pthread -lreadline -lsfml-graphics -lsfml-window -lsfml-system
+LIB := -pthread -lreadline -lsfml-graphics -lsfml-window -lsfml-system -llua
 
 SRCDIR := src
 BUILDDIR := build

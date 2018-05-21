@@ -7,7 +7,6 @@ Input::Input (Systems::MessageBus *mbus)
 {
     start_system ();
     input_type = INPUT_ON;
-    printf ("Input system starting...\n");
 }
 
 Input::~Input ()

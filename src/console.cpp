@@ -10,7 +10,6 @@ Console::Console (MessageBus *mbus) : super (mbus)
 {
     start_system ();
     console_support = true;
-    printf ("Console system starting...\n");
 }
 
 void Console::inputListener ()
