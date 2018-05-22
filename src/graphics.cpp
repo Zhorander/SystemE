@@ -45,10 +45,12 @@ void Graphics::eventHandler()
     Framework::event e;
 
     while (msgBus->isRunning()) {
-        while (win->isOpen() && win->pollEvent(&e)) {
+        if (win->isOpen() && win->pollEvent(&e)) {
             if (winObserver)
                 winObserver->notify(e);
         }
+
+        Systems::system_sleep(10);
     }
 }
 
