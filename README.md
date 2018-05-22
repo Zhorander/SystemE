@@ -9,7 +9,17 @@ Current To-Do:
 - allow for either lua or lily scripts
 - implement being able to read config files
 
-Right now the only dependency is SFML
+Dependencies:
+    SFML           - https://www.sfml-dev.org/
+    GNU Readline   - to be deprecated
+    Lua            - development libraries
+    Lily(optional) - https://github.com/FascinatedBox/lily
 
-https://www.sfml-dev.org/
+Building:
+
+in source dir type: cmake -H. -Bbuild
+
+Running:
+
+in source dir type: cmake --build build -- -j3
 

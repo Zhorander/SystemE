@@ -10,7 +10,11 @@ ScriptReader::ScriptReader(std::string path)
     interp = lily_new_state(&lconf);
     lily_parse_file(interp, path.c_str());
 #else
+#ifdef _LUA_5_3
     interp = luaL_newstate();
+#else
+    interp = lua_open();
+#endif
     luaL_openlibs(interp);
     luaL_dofile(interp, path.c_str());
 #endif
