@@ -22,7 +22,9 @@
 
 /** assembleScriptReader
  * Factory method for creating an appropriate script reader for the given
- * script(i.e a lua reader for a lua script, a lily reader for a lily script)
+ * script(i.e a lua reader for a lua script)
+ * CURRENTLY WE ONLY SUPPORT LUA
+ * but thinking about adding game monkey script and a few others
  */
 ScriptReader *GameLogic::assembleScriptReader(std::string path)
 {
@@ -38,14 +40,6 @@ ScriptReader *GameLogic::assembleScriptReader(std::string path)
         if (extension == "lua") {
             return new LuaReader(path);
         }
-#ifdef USING_LILY
-        else if (extension == "lily") {
-            return new LilyReader(path);
-        }
-        else if (extension == "lly") {
-            return new LilyReader(path);
-        }
-#endif
     }
 
     return NULL;

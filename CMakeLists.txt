@@ -16,7 +16,6 @@ find_package(Threads REQUIRED)
 find_package(SFML 2 REQUIRED network audio graphics window system)
 find_package(Readline REQUIRED)
 find_package(Lua REQUIRED)
-find_package(Lily)
 if(THREADS_HAVE_PTHREAD_ARG)
     target_compile_options(systemE PUBLIC "-pthread")
 endif()
@@ -42,10 +41,5 @@ endif()
 
 if(READLINE_FOUND)
     target_link_libraries(systemE -lreadline)
-endif()
-
-if(LILY_FOUND)
-    target_compile_options(systemE PUBLIC "-DUSING_LILY")
-    target_link_libraries(systemE -llily)
 endif()
 

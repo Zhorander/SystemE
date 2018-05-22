@@ -23,9 +23,6 @@
 #include <iostream>
 
 extern "C" {
-#ifdef USING_LILY
-#include <lily/lily.h>
-#endif
 #include <lua.h>
 #include <lauxlib.h>
 #include <lualib.h>
@@ -33,8 +30,6 @@ extern "C" {
 
 class ScriptReader;
 class LuaReader;
-class LilyReader;
-//class JavaScriptReader;
 
 class ScriptReader {
     public:
@@ -58,18 +53,4 @@ class LuaReader : public ScriptReader {
     private:
         lua_State *interpreter;
 };
-
-#ifdef USING_LILY
-class LilyReader : public ScriptReader {
-    public:
-        LilyReader(std::string path);
-        ~LilyReader();
-        void loadScript() override;
-        void init() override;
-        void draw() override;
-        void update(double dt) override;
-    private:
-        lily_state *interpreter;
-};
-#endif
 
