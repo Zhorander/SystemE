@@ -13,6 +13,7 @@ class GameLogic : public Systems::System {
         void start_system() override;
         void processMsg(Msg *msg) override;
     private:
+        ScriptReader *assembleScriptReader(std::string path);
         ScriptReader *sReader;
         using Systems::System::System;
         typedef System super;
