@@ -64,6 +64,7 @@ class LilyReader : public ScriptReader {
     public:
         LilyReader(std::string path);
         ~LilyReader();
+        void loadScript() override;
         void init() override;
         void draw() override;
         void update(double dt) override;

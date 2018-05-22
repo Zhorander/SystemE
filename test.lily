@@ -1,0 +1,5 @@
+define hello {
+    print("lily scripts work!")
+}
+
+hello()

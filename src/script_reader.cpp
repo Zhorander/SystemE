@@ -116,7 +116,7 @@ void LilyReader::draw()
 void LilyReader::update(double dt)
 {
     std::string u = "update(";
-    u = u + dt + std::string(")");
+    u = u + std::to_string(dt) + std::string(")");
     lily_parse_string(interpreter, "scriptReadder", u.c_str());
 }
 #endif

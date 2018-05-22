@@ -6,14 +6,15 @@ very incomplete engine, focused on the development of general 2D games.
 Current To-Do:
 - make console more sophisticated
 - write script interface, audio, and graphical subsystems
-- allow for either lua or lily scripts
 - implement being able to read config files
+- make cross platform
 
 Dependencies:
-    SFML           - https://www.sfml-dev.org/
-    GNU Readline   - to be deprecated
-    Lua            - development libraries
-    Lily(optional) - https://github.com/FascinatedBox/lily
+-    Cmake           for building
+-    SFML            https://www.sfml-dev.org/
+-    GNU Readline    to be deprecated
+-    Lua
+-    Lily(optional)  https://github.com/FascinatedBox/lily
 
 Building:
 

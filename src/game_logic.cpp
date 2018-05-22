@@ -35,13 +35,16 @@ ScriptReader *GameLogic::assembleScriptReader(std::string path)
     {
         std::string extension = filename.substr(idx+1);
 
-        if (extension == "lua")
+        if (extension == "lua") {
             return new LuaReader(path);
+        }
 #ifdef USING_LILY
-        else if (extension == "lily")
+        else if (extension == "lily") {
             return new LilyReader(path);
-        else if (extension == "lly")
+        }
+        else if (extension == "lly") {
             return new LilyReader(path);
+        }
 #endif
     }
 
