@@ -23,7 +23,6 @@
 #include "console.h"
 #include "input.h"
 #include "graphics.h"
-#include "object_manager.h"
 #include "game_logic.h"
 
 /** main.cpp
@@ -64,8 +63,8 @@ int main ()
      * To Do:
      * deprecate this subsystem and use refrence counted objects instead
      */
-    ObjectManager *om = new ObjectManager (&mbus);
-    mbus.addSystem (om);
+    /* ObjectManager *om = new ObjectManager (&mbus); */
+    /* mbus.addSystem (om); */
 
     /** Start the graphics subsystem
      * To Do:

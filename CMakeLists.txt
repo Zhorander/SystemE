@@ -43,3 +43,5 @@ if(READLINE_FOUND)
     target_link_libraries(systemE -lreadline)
 endif()
 
+target_compile_options(systemE PUBLIC "-I include/nlohmann")
+

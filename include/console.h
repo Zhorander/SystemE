@@ -29,7 +29,7 @@ class Console : public Systems::System {
         Console (MessageBus *mbus);
         void inputListener ();
         void start_system () override;
-        void processMsg (Msg *msg) override;
+        void processMsg (Msg msg) override;
         void print_logo ();
         void process_cmd (std::string s);
         ~Console ();

@@ -21,26 +21,45 @@
 #include "messages.h"
 
 //-----MSG-----
-Msg::Msg (msg_type t, void *val)
+Msg::Msg (msg_type t)
 {
     message_type = t;
-    value = val;
     p = normal; // if no priority given, treat a normal
+
+    setValue("message type", t);
 }
 
-Msg::Msg (msg_type t, void *val, priority pr)
+Msg::Msg (msg_type t, priority pr)
 {
     message_type = t;
-    value = val;
     p = pr;
+
+    setValue("message type", t);
 }
 
-Msg::~Msg ()
+void Msg::setValue(std::string key, std::string value)
 {
-    if (value) {
-        free (value);
-        value = NULL;
-    }
+    data[key] = value;
+}
+
+void Msg::setValue(std::string key, double value)
+{
+    data[key] = value;
+}
+
+void Msg::setValue(std::string key, int value)
+{
+    data[key] = value;
+}
+
+void Msg::setValue(std::string key, bool value)
+{
+    data[key] = value;
+}
+
+void *Msg::getValue(std::string key)
+{
+    return (void*)&data[key];
 }
 
 msg_type Msg::getMsgType ()
@@ -48,12 +67,7 @@ msg_type Msg::getMsgType ()
     return message_type;
 }
 
-void *Msg::getValue ()
-{
-    return value;
-}
-
 std::string Msg::asString ()
 {
-    return std::string ("generic message");
+    return data.dump();
 }

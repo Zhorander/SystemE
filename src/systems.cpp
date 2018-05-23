@@ -58,7 +58,7 @@ void System::messageHandler ()
             std::lock_guard<std::mutex> lock(qGuard);
 
             while (!queue.empty ()) {
-                Msg *m = queue.top ();
+                Msg m = queue.top ();
                 queue.pop ();
                 processMsg (m);
             }
@@ -68,11 +68,11 @@ void System::messageHandler ()
     }
 }
 
-void System::processMsg (Msg *msg)
+void System::processMsg (Msg msg)
 {
 }
 
-void System::giveMessage (Msg *msg)
+void System::giveMessage (Msg msg)
 {
     std::lock_guard<std::mutex> lock(qGuard);
 
@@ -121,7 +121,7 @@ bool MessageBus::isRunning ()
     return systems_running;
 }
 
-void MessageBus::postMessage (Msg *msg)
+void MessageBus::postMessage (Msg msg)
 {
     std::lock_guard<std::mutex> lock(qGuard);
 
@@ -140,7 +140,7 @@ void MessageBus::messageProcessor ()
             std::lock_guard<std::mutex> lock(qGuard);
 
             while (!queue.empty ()) {
-                Msg *msg = queue.top ();
+                Msg msg = queue.top ();
                 queue.pop ();
 
                 for (auto &i : systems)

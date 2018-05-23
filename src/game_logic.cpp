@@ -70,7 +70,7 @@ void GameLogic::start_system()
     msg_handler = std::thread(&System::messageHandler, this);
 }
 
-void GameLogic::processMsg(Msg *msg)
+void GameLogic::processMsg(Msg msg)
 {
 }
 

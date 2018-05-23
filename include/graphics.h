@@ -28,7 +28,7 @@ class Graphics : public Systems::System {
         Graphics(Systems::MessageBus *mbus, int height, int width);
         ~Graphics();
         void start_system() override;
-        void processMsg(Msg *msg) override;
+        void processMsg(Msg msg) override;
         void eventHandler();
         void setInputHandler(Framework::WindowObserver *wo);
     private:

@@ -19,12 +19,17 @@
  */
 
 #include <string>
+#include <nlohmann/json.hpp>
 
 #pragma once
+
+using json = nlohmann::json;
 
 enum msg_type {
     kb_event = 0, //keyboard event
     js_event, //joystick event
+    mouse_event,
+    window_event,
     error,
     warning,
     quit,
@@ -46,23 +51,26 @@ enum priority {
 
 class Msg {
     public:
-        Msg (msg_type t, void *val);
-        Msg (msg_type t, void *val, priority pr);
-        virtual ~Msg ();
+        Msg (msg_type t);
+        Msg (msg_type t, priority pr);
 
         msg_type getMsgType ();
-        void *getValue ();
-        virtual std::string asString();
+        void *getValue(std::string key);
+        void setValue(std::string key, std::string value);
+        void setValue(std::string key, double value);
+        void setValue(std::string key, int value);
+        void setValue(std::string key, bool value);
+        std::string asString();
 
         //judge msg priority
-        bool operator < (Msg *y)
+        bool operator < (const Msg y) const
         {
-            return this->p < y->p;
+            return p < y.p;
         }
 
     private:
+        json data;
         msg_type message_type;
-        void *value;
         priority p;
 };
 

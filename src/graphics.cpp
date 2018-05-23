@@ -54,7 +54,7 @@ void Graphics::eventHandler()
     }
 }
 
-void Graphics::processMsg(Msg *msg)
+void Graphics::processMsg(Msg msg)
 {
 
 }

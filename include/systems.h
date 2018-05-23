@@ -64,7 +64,7 @@ namespace Systems {
             ~MessageBus ();
 
             void setCondVar (std::condition_variable *cv);
-            void postMessage (Msg *msg); //val may be NULL
+            void postMessage (Msg msg);
             void messageProcessor (); //thread that posts when there are available messages
             void addSystem (System *s);
             void exit ();
@@ -75,7 +75,7 @@ namespace Systems {
             //mutex for queue since threads are posting to it
             std::mutex qGuard;
             //thread safe queue
-            std::priority_queue<Msg *> queue;
+            std::priority_queue<Msg> queue;
             //must hold references to systems to be able to use overriden functions
             std::list<System *> systems;
             //continuously check for and send messages
@@ -92,8 +92,8 @@ namespace Systems {
             System (MessageBus *main_bus);
 
             void messageHandler (); //handler for recieving messages
-            virtual void processMsg (Msg *msg); //message processor
-            void giveMessage (Msg *msg); //hand a message off to the system
+            virtual void processMsg (Msg msg); //message processor
+            void giveMessage (Msg msg); //hand a message off to the system
             virtual void start_system ();
             std::thread getMsgThread ();
 
@@ -105,7 +105,7 @@ namespace Systems {
 
         private:
             //message queue
-            std::priority_queue<Msg *> queue;
+            std::priority_queue<Msg> queue;
             //mutex for pr queue
             std::mutex qGuard;
     };

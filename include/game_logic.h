@@ -29,7 +29,7 @@ class GameLogic : public Systems::System {
         GameLogic(Systems::MessageBus *mbus, std::string path);
         ~GameLogic();
         void start_system() override;
-        void processMsg(Msg *msg) override;
+        void processMsg(Msg msg) override;
     private:
         ScriptReader *assembleScriptReader(std::string path);
         ScriptReader *sReader;
